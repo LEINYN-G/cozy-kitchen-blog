@@ -1,0 +1,24 @@
+:root {
+  --bg-color: #fdfaf6;
+  --text-color: #4b2e2e;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='dark'] {
+  --bg-color: #1a1a1a;
+  --text-color: #fff8f0;
+  --card-bg: #2c2c2c;
+  --card-shadow: rgba(255, 255, 255, 0.05);
+}
+
+/* Global heading styling */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+}
+
+* {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+
