@@ -83,6 +83,18 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         fontFamily: 'Georgia, serif',
       }}
     >
+      <style jsx global>{`
+        .markdown-content img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+          object-fit: cover;
+          border-radius: 10px;
+          margin: 1rem 0;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+      `}</style>
+
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
         <button
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
@@ -101,7 +113,6 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
       </div>
 
       <article
-      
         style={{
           maxWidth: '800px',
           margin: 'auto',
@@ -115,20 +126,23 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
       >
         <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{frontmatter.title}</h1>
         <p style={{ fontStyle: 'italic', marginBottom: '1.5rem' }}>{frontmatter.date}</p>
-       
+
         {frontmatter.image && (
           <div style={{ marginBottom: '1.5rem' }}>
             <Image
               src={frontmatter.image}
               alt={frontmatter.title}
-              width={700}
-              height={450}
+              width={600}
+              height={300}
               style={{ borderRadius: '10px', objectFit: 'cover' }}
             />
           </div>
         )}
 
-        <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        <div
+          className="markdown-content"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
 
         {frontmatter.product && (
           <div style={{
@@ -144,7 +158,12 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
               <img
                 src={frontmatter.product.image}
                 alt={frontmatter.product.name}
-                style={{ width: '120px', borderRadius: '8px' }}
+                style={{
+                  width: '140px',
+                  height: 'auto',
+                  objectFit: 'cover',
+                  borderRadius: '8px'
+                }}
               />
               <div>
                 <p style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -164,7 +183,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
                     marginTop: '0.3rem'
                   }}
                 >
-                  Buy Now
+                  Buy Now!
                 </a>
               </div>
             </div>
@@ -172,9 +191,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         )}
       </article>
 
-      {/* Comments Section */}
-       <CommentBox slug={frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
-      
+      <CommentBox slug={slug} />
     </main>
   );
 }
