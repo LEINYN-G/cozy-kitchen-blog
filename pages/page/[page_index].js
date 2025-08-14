@@ -191,12 +191,24 @@ export async function getStaticProps({ params }) {
       excerpt: content.split('\n').find((line) => line.trim())?.slice(0, 140) || '',
     };
   });
+  
+  // Sort: published first (by date desc), drafts last (by date desc)
+  const sortedPosts = posts.sort((a, b) => {
+    const aDraft = a.status === 'draft';
+    const bDraft = b.status === 'draft';
 
-  return {
+    if (aDraft && !bDraft) return 1;   // a goes after b
+    if (!aDraft && bDraft) return -1;  // a goes before b
+
+    // If both are same type, sort by date (newest first)
+    return new Date(b.date) - new Date(a.date);
+  });
+  
+   return {
     props: {
-      posts,
+      posts: sortedPosts,
       currentPage: page,
-      totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
+      totalPages: Math.ceil(sortedPosts.length / POSTS_PER_PAGE),
     },
   };
 }
