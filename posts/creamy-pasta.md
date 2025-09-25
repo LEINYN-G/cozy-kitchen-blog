@@ -7,7 +7,7 @@ category: "Breakfast"
 product:
    name: "wish you have one too"
    link: "https;//amazon.in/example-product"
-   image: "/images/creamy-pasta/download(1).jpg"
+   image: "/images/creamy-pasta/download(1).jpeg"
 ---
 This is a super cheesy, flavorful pasta recipe. 🧀
 ![Main Dish](/images/creamy-pasta/creamy_pasta.jpg)
