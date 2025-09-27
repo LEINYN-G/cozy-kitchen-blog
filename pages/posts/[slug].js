@@ -1,3 +1,4 @@
+// pages/posts/[slug].js
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -50,7 +51,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
     fetch(`/api/comments?slug=${slug}`)
       .then(res => res.json())
       .then(data => setComments(data));
-  }, []);
+  }, [slug]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -83,6 +84,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         fontFamily: 'Georgia, serif',
       }}
     >
+      {/* Markdown images global styling (keeps inline markdown images consistent) */}
       <style jsx global>{`
         .markdown-content img {
           display: block;
@@ -92,6 +94,17 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
           border-radius: 10px;
           margin: 1rem 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Optional small responsiveness for article text */
+        .post-article {
+          padding: 2rem;
+        }
+
+        @media (max-width: 640px) {
+          .post-article {
+            padding: 1rem;
+          }
         }
       `}</style>
 
@@ -113,6 +126,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
       </div>
 
       <article
+        className="post-article"
         style={{
           maxWidth: '800px',
           margin: 'auto',
@@ -127,23 +141,37 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{frontmatter.title}</h1>
         <p style={{ fontStyle: 'italic', marginBottom: '1.5rem' }}>{frontmatter.date}</p>
 
+        {/* RESPONSIVE HERO IMAGE */}
         {frontmatter.image && (
-          <div style={{ marginBottom: '1.5rem' }}>
-            <Image
-              src={frontmatter.image}
-              alt={frontmatter.title}
-              width={600}
-              height={300}
-              style={{ borderRadius: '10px', objectFit: 'cover' }}
-            />
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '800px',
+              margin: '0.5rem auto 1.5rem',
+              borderRadius: '12px',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Aspect ratio container - tweak paddingTop to change height */}
+            <div style={{ position: 'relative', width: '100%', height: 0, paddingTop: '42%' }}>
+              <Image
+                src={frontmatter.image}
+                alt={frontmatter.title}
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 640px) 100vw, 800px"
+              />
+            </div>
           </div>
         )}
 
+        {/* Post content (markdown converted to HTML) */}
         <div
           className="markdown-content"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
 
+        {/* Product block (keeps product image constrained) */}
         {frontmatter.product && (
           <div style={{
             marginTop: '2rem',
@@ -154,18 +182,18 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
           }}>
             <h3 style={{ marginBottom: '0.5rem' }}>🛒 Recommended Product</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <img
-                src={frontmatter.product.image}
-                alt={frontmatter.product.name}
-                style={{
-                  width: '140px',
-                  height: 'auto',
-                  objectFit: 'cover',
-                  borderRadius: '8px'
-                }}
-              />
-              <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+              <div style={{ width: '140px', flex: '0 0 140px' }}>
+                <Image
+                  src={frontmatter.product.image}
+                  alt={frontmatter.product.name}
+                  width={140}
+                  height={90}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              </div>
+
+              <div style={{ flex: '1 1 200px' }}>
                 <p style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>
                   {frontmatter.product.name}
                 </p>
@@ -191,7 +219,11 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         )}
       </article>
 
-      <CommentBox slug={slug} />
+      {/* Comments Section */}
+      <div style={{ maxWidth: '800px', margin: '1.5rem auto' }}>
+        <CommentBox slug={slug} />
+      </div>
+
     </main>
   );
 }
