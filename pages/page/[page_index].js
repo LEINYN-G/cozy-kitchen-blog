@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 const POSTS_PER_PAGE = 6;
 
 export default function HomePage({ posts, totalPages, currentPage, theme, setTheme }) {
-
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
@@ -26,34 +25,35 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
   return (
     <main style={{ padding: '2rem', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh' }}>
       <h1 style={{ fontSize: '2rem' }}>🍽️ My Cozy Kitchen</h1>
-     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-  <label style={{ fontSize: '0.85rem' }}>{theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}</label>
-  <div
-    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-    style={{
-      width: '50px',
-      height: '26px',
-      borderRadius: '30px',
-      backgroundColor: theme === 'light' ? '#ccc' : '#666',
-      display: 'flex',
-      alignItems: 'center',
-      padding: '3px',
-      cursor: 'pointer',
-      transition: 'background 0.3s ease'
-    }}
-  >
-    <div
-      style={{
-        width: '20px',
-        height: '20px',
-        borderRadius: '50%',
-        backgroundColor: '#fff',
-        transform: theme === 'light' ? 'translateX(0)' : 'translateX(24px)',
-        transition: 'transform 0.3s ease'
-      }}
-    />
-  </div>
-</div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+        <label style={{ fontSize: '0.85rem' }}>{theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}</label>
+        <div
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          style={{
+            width: '50px',
+            height: '26px',
+            borderRadius: '30px',
+            backgroundColor: theme === 'light' ? '#ccc' : '#666',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '3px',
+            cursor: 'pointer',
+            transition: 'background 0.3s ease'
+          }}
+        >
+          <div
+            style={{
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              backgroundColor: '#fff',
+              transform: theme === 'light' ? 'translateX(0)' : 'translateX(24px)',
+              transition: 'transform 0.3s ease'
+            }}
+          />
+        </div>
+      </div>
 
       {/* Category Filter */}
       <div style={{ marginBottom: '1.5rem' }}>
@@ -82,68 +82,76 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
         gap: '1.5rem'
       }}>
         {paginated.map((post) => {
-  const isDraft = post.status === 'draft';
+          const isDraft = post.status === 'draft';
 
-  const card = (
-    <div
-      style={{
-        backgroundColor: 'var(--card-bg)',
-        color: 'var(--text-color)',
-        borderRadius: '12px',
-        overflow: 'hidden',
-        boxShadow: '0 4px 10px var(--card-shadow)',
-        opacity: isDraft ? 0.6 : 1,
-        position: 'relative',
-        filter: isDraft ? 'blur(1px)' : 'none',
-        transition: 'all 0.3s ease',
-        pointerEvents: isDraft ? 'none' : 'auto',
-      }}
-    >
-      {isDraft && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.4)',
-            color: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: '1.2rem',
-            fontWeight: 'bold',
-            zIndex: 2,
-          }}
-        >
-          🔒 Coming Soon
-        </div>
-      )}
+          const cardInner = (
+            <div
+              style={{
+                backgroundColor: 'var(--card-bg)',
+                color: 'var(--text-color)',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 10px var(--card-shadow)',
+                opacity: isDraft ? 0.6 : 1,
+                position: 'relative',
+                filter: isDraft ? 'blur(1px)' : 'none',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                pointerEvents: isDraft ? 'none' : 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.12)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 10px var(--card-shadow)'; }}
+            >
+              {isDraft && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    zIndex: 2,
+                  }}
+                >
+                  🔒 Coming Soon
+                </div>
+              )}
 
-      <Image
-        src={post.image || '/images/default-thumb.jpg'}
-        alt={post.title}
-        width={400}
-        height={240}
-        style={{ objectFit: 'cover', width: '100%' }}
-      />
-      <div style={{ padding: '1rem' }}>
-        <h2>{post.title}</h2>
-        <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{post.date}</p>
-        <p>{isDraft ? 'This recipe is under wraps for now 👩‍🍳' : `${post.excerpt}...`}</p>
-      </div>
-    </div>
-  );
+              {/* Responsive thumbnail container (keeps aspect ratio) */}
+              <div style={{ width: '100%', position: 'relative', height: 0, paddingTop: '60%' }}>
+                <Image
+                  src={post.image || '/images/default-thumb.jpg'}
+                  alt={post.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 640px) 100vw, 400px"
+                />
+              </div>
 
-  return isDraft ? (
-    <div key={post.slug}>{card}</div>
-  ) : (
-    <Link key={post.slug} href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
-      {card}
-    </Link>
-  );
-})}
+              <div style={{ padding: '1rem' }}>
+                <h2 style={{ margin: 0 }}>{post.title}</h2>
+                <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{post.date}</p>
+                <p>{isDraft ? 'This recipe is under wraps for now 👩‍🍳' : `${post.excerpt}...`}</p>
+              </div>
+            </div>
+          );
+
+          return isDraft ? (
+            <div key={post.slug}>{cardInner}</div>
+          ) : (
+            <Link key={post.slug} href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
+              {cardInner}
+            </Link>
+          );
+        })}
       </section>
 
       {/* Pagination */}
@@ -191,7 +199,7 @@ export async function getStaticProps({ params }) {
       excerpt: content.split('\n').find((line) => line.trim())?.slice(0, 140) || '',
     };
   });
-  
+
   // Sort: published first (by date desc), drafts last (by date desc)
   const sortedPosts = posts.sort((a, b) => {
     const aDraft = a.status === 'draft';
@@ -203,8 +211,8 @@ export async function getStaticProps({ params }) {
     // If both are same type, sort by date (newest first)
     return new Date(b.date) - new Date(a.date);
   });
-  
-   return {
+
+  return {
     props: {
       posts: sortedPosts,
       currentPage: page,
