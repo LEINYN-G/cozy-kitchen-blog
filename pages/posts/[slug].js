@@ -1,4 +1,4 @@
-// pages/posts/[slug].js
+
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -45,20 +45,24 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
   const [comments, setComments] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
 
-  const slug = frontmatter.title.toLowerCase().replace(/\s+/g, '-');
+ 
+  const slug = frontmatter?.title
+    ? frontmatter.title.toLowerCase().replace(/\s+/g, '-')
+    : 'untitled';
 
   useEffect(() => {
     fetch(`/api/comments?slug=${slug}`)
-      .then(res => res.json())
-      .then(data => setComments(data));
+      .then((res) => res.json())
+      .then((data) => setComments(data))
+      .catch(() => setComments([]));
   }, [slug]);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch('/api/comments', {
       method: 'POST',
@@ -67,7 +71,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
     });
     const data = await res.json();
     if (res.ok) {
-      setComments(prev => [data.comment, ...prev]);
+      setComments((prev) => [data.comment, ...prev]);
       setFormData({ name: '', email: '', comment: '' });
     } else {
       alert(data.error);
@@ -84,7 +88,6 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         fontFamily: 'Georgia, serif',
       }}
     >
-      {/* Markdown images global styling (keeps inline markdown images consistent) */}
       <style jsx global>{`
         .markdown-content img {
           display: block;
@@ -93,14 +96,11 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
           object-fit: cover;
           border-radius: 10px;
           margin: 1rem 0;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
-
-        /* Optional small responsiveness for article text */
         .post-article {
           padding: 2rem;
         }
-
         @media (max-width: 640px) {
           .post-article {
             padding: 1rem;
@@ -141,7 +141,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{frontmatter.title}</h1>
         <p style={{ fontStyle: 'italic', marginBottom: '1.5rem' }}>{frontmatter.date}</p>
 
-        {/* RESPONSIVE HERO IMAGE */}
+        {/* Hero Image */}
         {frontmatter.image && (
           <div
             style={{
@@ -152,7 +152,6 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
               overflow: 'hidden',
             }}
           >
-            {/* Aspect ratio container - tweak paddingTop to change height */}
             <div style={{ position: 'relative', width: '100%', height: 0, paddingTop: '42%' }}>
               <Image
                 src={frontmatter.image}
@@ -165,65 +164,90 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
           </div>
         )}
 
-        {/* Post content (markdown converted to HTML) */}
-        <div
-          className="markdown-content"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
+        {/* Markdown Content */}
+        <div className="markdown-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
 
-        {/* Product block (keeps product image constrained) */}
-        {frontmatter.product && (
-          <div style={{
-            marginTop: '2rem',
-            padding: '1rem',
-            border: '1px solid #ccc',
-            borderRadius: '12px',
-            backgroundColor: 'var(--card-bg)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-          }}>
-            <h3 style={{ marginBottom: '0.5rem' }}>🛒 Recommended Product</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              <div style={{ width: '140px', flex: '0 0 140px' }}>
-                <Image
-                  src={frontmatter.product.image}
-                  alt={frontmatter.product.name}
-                  width={140}
-                  height={90}
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
-              </div>
-
-              <div style={{ flex: '1 1 200px' }}>
-                <p style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                  {frontmatter.product.name}
-                </p>
-                <a
-                  href={frontmatter.product.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+        {/*Multiple Products Section */}
+        {frontmatter.products && frontmatter.products.length > 0 && (
+          <div
+            style={{
+              marginTop: '2.5rem',
+              padding: '1.5rem',
+              borderRadius: '12px',
+              backgroundColor: 'var(--card-bg)',
+              boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+            }}
+          >
+            <h3 style={{ marginBottom: '1rem', fontSize: '1.4rem' }}>🛒 Featured Products</h3>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '1.5rem',
+                justifyContent: 'space-between',
+              }}
+            >
+              {frontmatter.products.map((item, index) => (
+                <div
+                  key={index}
                   style={{
-                    padding: '0.5rem 1rem',
-                    backgroundColor: '#7b4c3a',
-                    color: '#fff',
-                    borderRadius: '6px',
-                    textDecoration: 'none',
-                    display: 'inline-block',
-                    marginTop: '0.3rem'
+                    flex: '1 1 260px',
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    padding: '1rem',
+                    backgroundColor: 'var(--bg-color)',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  Buy Now!
-                </a>
-              </div>
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={400}
+                    height={260}
+                    style={{
+                      objectFit: 'cover',
+                      borderRadius: '10px',
+                      marginBottom: '0.8rem',
+                      width: '100%',
+                      height: '200px',
+                    }}
+                  />
+                  <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{item.name}</h4>
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-block',
+                      padding: '0.6rem 1rem',
+                      backgroundColor: '#db923eff',
+                      color: '#fff',
+                      borderRadius: '6px',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                    }}
+                  >
+                    Buy Now →
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         )}
       </article>
 
-      {/* Comments Section */}
+      {/* Comments */}
       <div style={{ maxWidth: '800px', margin: '1.5rem auto' }}>
         <CommentBox slug={slug} />
       </div>
-
     </main>
   );
 }
