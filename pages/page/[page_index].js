@@ -200,15 +200,15 @@ export async function getStaticProps({ params }) {
     };
   });
 
-  // Sort: published first (by date desc), drafts last (by date desc)
+  
   const sortedPosts = posts.sort((a, b) => {
     const aDraft = a.status === 'draft';
     const bDraft = b.status === 'draft';
 
-    if (aDraft && !bDraft) return 1;   // a goes after b
-    if (!aDraft && bDraft) return -1;  // a goes before b
+    if (aDraft && !bDraft) return 1;   
+    if (!aDraft && bDraft) return -1;  
 
-    // If both are same type, sort by date (newest first)
+    
     return new Date(b.date) - new Date(a.date);
   });
 
