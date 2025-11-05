@@ -5,6 +5,10 @@ auther: "Lenyn"
 image: "/images/stuffed-brd/view_stuff.jpg"
 category: "Dinner"
 status: "published"
+product:
+  name: "Chopper (Wish you have one too!)"
+  link: "https://amzn.to/4qD9WzX"
+  image: "/images/products/veg-chopper.jpg"
 
 ---
 
@@ -41,7 +45,7 @@ Delicious stuffed bread recipe with a crispy crust!
 
 ### Instructions:
 ### Prepare the Dough:
-![dough](/images/stuffed-brd/images(2).jpg)
+![dough](/images/stuffed-brd/dough.jpg)
 1. In a bowl, mix the flour with butter and a pinch of baking soda and salt. Gradually add water (or milk) and knead until you have a soft, smooth dough. Cover the dough and let it rest for at least 10 minutes.
 
 ### Make the Stuffing:
@@ -50,9 +54,9 @@ Delicious stuffed bread recipe with a crispy crust!
 
 ### Assemble the Stuffed Bread:
 3. Divide the dough into small portions. Roll each portion into a small, thin circle like a chapati or roti. 
-![like-this](/images/stuffed-brd/images(1).jpg)
+![like-this](/images/stuffed-brd/chapati.jpg)
 Place a portion of the stuffing on one half of the circle. To seal it, lightly moisten the edges with a little water, then fold the empty half over the stuffing to form a half-moon shape. Gently press the edges together to seal them.
-![like-this](/images/stuffed-brd/images(3).jpg)
+![like-this](/images/stuffed-brd/roti.jpg)
 
 ### Cook the Stuffed Bread:
 4. Heat a pan over low heat. Place the stuffed bread on the heated pan and cook each side slowly until it is golden brown and cooked through. Once done, you can brush some melted butter on top for extra flavor.
