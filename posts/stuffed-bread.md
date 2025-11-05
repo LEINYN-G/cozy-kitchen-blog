@@ -1,16 +1,16 @@
 ---
 title: "Stuffed Bread"
 date: "2025-06-17"
-auther: "Lenyn" 
+author: "Lenyn"
 image: "/images/stuffed-brd/view_stuff.jpg"
 category: "Dinner"
 status: "published"
-product:
-  name: "Chopper (Wish you have one too!)"
-  link: "https://amzn.to/4qD9WzX"
-  image: "/images/products/veg-chopper.jpg"
-
+products:
+  - name: "Chopper (Wish you have one too!)"
+    link: "https://amzn.to/4qD9WzX"
+    image: "/images/products/veg-chopper.jpg"
 ---
+
 
 Delicious stuffed bread recipe with a crispy crust!
 
