@@ -11,6 +11,9 @@ products:
   - name: "Cutlery Set (Wish you have one too!)"
     link: "https://amzn.to/3LkqAV3"
     image: "/images/products/cutlery-set.jpg"
+  - name: "Rigatoni (Wish you have one too!)"
+    link: "https://amzn.to/4or7Kdn"
+    image: "/images/products/rigatoni.jpg"
 ---
 
 This is a super cheesy, flavorful pasta recipe. 🧀
