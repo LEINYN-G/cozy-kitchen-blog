@@ -1,4 +1,4 @@
-
+// pages/posts/[slug].js
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -45,7 +45,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
   const [comments, setComments] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
 
- 
+  // ✅ Fix: safely generate slug
   const slug = frontmatter?.title
     ? frontmatter.title.toLowerCase().replace(/\s+/g, '-')
     : 'untitled';
@@ -167,7 +167,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         {/* Markdown Content */}
         <div className="markdown-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
 
-        {/*Multiple Products Section */}
+        {/* ✅ Multiple Products Section */}
         {frontmatter.products && frontmatter.products.length > 0 && (
           <div
             style={{
