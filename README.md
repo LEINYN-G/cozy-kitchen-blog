@@ -30,10 +30,21 @@ It’s a space where food meets creativity — from simple comfort dishes to che
 | **MongoDB (optional)** | Stores comments if connected |
 | **Vercel** | Hosting and continuous deployment |
 
+Key Features:
+
+-> Fully responsive homepage with Grid/Flex layout
+-> Recipe categories like Breakfast, Dinner, Snacks, Desserts
+-> Pagination integrated with filtering
+-> Auto-generated preview/excerpt text
+-> Fallback images for posts without thumbnails
+-> Comment system for user interaction
+-> Deployed on Vercel with GitHub auto-deployment
+-> Images organized automatically in public/images/<dish>
+
 ---
 💌 About the Creator
 
-Developed by Nisha Kumari,
+Developed by Nisha,
 a passionate developer and food enthusiast who loves combining creativity with technology.
 From designing AI-powered tools to crafting beautiful web experiences — she believes code can be both functional and flavorful 🍰
 
