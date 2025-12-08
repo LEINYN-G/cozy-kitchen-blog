@@ -5,7 +5,7 @@ import Head from "next/head";
 export default function Home() {
   return (
     <>
-      {/*Elegant Font Imports */}
+     
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Satisfy&family=Poppins:wght@400;500;600&display=swap"
@@ -27,7 +27,7 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        {/*Background Image */}
+        
         <div
           style={{
             position: "absolute",
@@ -42,7 +42,6 @@ export default function Home() {
           }}
         ></div>
 
-        {/* Overlay */}
         <div
           style={{
             position: "absolute",
@@ -58,7 +57,6 @@ export default function Home() {
           }}
         ></div>
 
-        {/* Animated Steam */}
         <div
           style={{
             position: "absolute",
@@ -132,7 +130,6 @@ export default function Home() {
           This is my way of spreading warmth through food and coffee.
         </motion.p>
 
-        {/* Explore Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -184,7 +181,6 @@ export default function Home() {
           Made with ❤️ and a shot of espresso.
         </motion.p>
 
-        {/* Steam animation */}
         <style jsx>{`
           @keyframes steamRise {
             0% {
@@ -214,3 +210,4 @@ export default function Home() {
     </>
   );
 }
+
