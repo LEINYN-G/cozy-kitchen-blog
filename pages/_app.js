@@ -1,18 +1,19 @@
 import '../styles/globals.css'
 import '../styles/theme.css';
+import Head from "next/head";
 import { useEffect, useState } from 'react';
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useState('light');
 
-  // Check saved preference on load
+  
   useEffect(() => {
     const stored = localStorage.getItem('theme') || 'light';
     setTheme(stored);
     document.documentElement.setAttribute('data-theme', stored);
   }, []);
 
-  // Watch theme changes
+  // theme changes
   useEffect(() => {
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
@@ -45,3 +46,15 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
+
+<Head>
+  <title>Focolove – Brew. Cook. Love. Repeat.</title>
+  <meta name="description" content="A cozy cooking blog filled with wholesome recipes, stories, and kitchen inspiration." />
+  <meta name="keywords" content="food blog, recipes, cooking, baking, Focolove, cozy kitchen" />
+  <meta name="author" content="Nisha Kumari" />
+  <meta property="og:title" content="Focolove – Cozy Cooking Blog" />
+  <meta property="og:description" content="Wholesome recipes and stories brewed with love." />
+  <meta property="og:image" content="/images/og-image.jpg" />
+  <meta property="og:url" content="https://focolove.com" />
+  <meta name="robots" content="index, follow" />
+</Head>
