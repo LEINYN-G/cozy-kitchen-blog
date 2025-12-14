@@ -45,6 +45,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
   const [comments, setComments] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
 
+  
   const slug = frontmatter?.title
     ? frontmatter.title.toLowerCase().replace(/\s+/g, '-')
     : 'untitled';
@@ -166,6 +167,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         {/* Markdown Content */}
         <div className="markdown-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
 
+        {/* Multiple Products Section */}
         {frontmatter.products && frontmatter.products.length > 0 && (
           <div
             style={{
