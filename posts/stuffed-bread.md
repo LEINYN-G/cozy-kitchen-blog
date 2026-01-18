@@ -9,6 +9,9 @@ products:
   - name: "Chopper (Wish you have one too!)"
     link: "https://amzn.to/4qD9WzX"
     image: "/images/products/veg-chopper.jpg"
+ - name: "Sesame Oil (Wish you have one too!)"
+    link: "https://amzn.to/3LFYRhS"
+    image: "/images/products/sesame-oil.jpg"
 ---
 
 
