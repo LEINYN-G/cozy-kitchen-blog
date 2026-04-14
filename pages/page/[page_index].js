@@ -8,17 +8,29 @@ import { useEffect, useState } from 'react';
 const POSTS_PER_PAGE = 6;
 
 export default function HomePage({ posts, totalPages, currentPage, theme, setTheme }) {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedType, setSelectedType] = useState('recipe');
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const categories = ['All', ...new Set(posts.map(p => p.category).filter(Boolean))];
+  const types = ['All', ...new Set(posts.map(p => p.type).filter(Boolean))];
+
+  //filter by Type
+  const typeFiltered = selectedType === 'All'
+    ? posts
+    : posts.filter(post => post.type === selectedType);
+ 
+  //filter by Category
+  const categories = [
+    'All',
+    ...new Set(typeFiltered.map(p => p.category).filter(Boolean))
+  ];
 
   const filtered = selectedCategory === 'All'
-    ? posts
-    : posts.filter(post => post.category === selectedCategory);
+    ? typeFiltered
+    : typeFiltered.filter(post => post.category === selectedCategory);
 
   const paginated = filtered.slice(0, POSTS_PER_PAGE);
 
@@ -55,6 +67,30 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
         </div>
       </div>
 
+      {/* Type Filter */}
+       <div style={{ marginBottom: '1rem' }}>
+         <label>Explore: </label>
+          {types.map((type) => (
+         <button
+         key={type}
+         onClick={() => {
+         setSelectedType(type);
+         setSelectedCategory('All'); // reset category when type changes
+      }}
+         style={{
+           margin: '0 5px',
+           padding: '6px 12px',
+           borderRadius: '20px',
+           border: selectedType === type ? '2px solid purple' : '1px solid #ccc',
+           background: selectedType === type ? 'lavender' : 'transparent',
+           cursor: 'pointer'
+      }}
+          >
+        {type}
+        </button>
+      ))}
+         </div>
+
       {/* Category Filter */}
       <div style={{ marginBottom: '1.5rem' }}>
         <label htmlFor="category">Filter by category: </label>
@@ -74,6 +110,13 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
           ))}
         </select>
       </div>
+
+
+      {filtered.length === 0 && (
+       <p style={{ textAlign: 'center', marginTop: '2rem' }}>
+          Go to Explote Button!!
+       </p>
+         )}
 
       {/* Cards */}
       <section style={{
@@ -200,15 +243,15 @@ export async function getStaticProps({ params }) {
     };
   });
 
-  
+  // Sort: published first (by date desc), drafts last (by date desc)
   const sortedPosts = posts.sort((a, b) => {
     const aDraft = a.status === 'draft';
     const bDraft = b.status === 'draft';
 
-    if (aDraft && !bDraft) return 1;   
-    if (!aDraft && bDraft) return -1;  
+    if (aDraft && !bDraft) return 1;   // a goes after b
+    if (!aDraft && bDraft) return -1;  // a goes before b
 
-    
+    // If both are same type, sort by date (newest first)
     return new Date(b.date) - new Date(a.date);
   });
 
