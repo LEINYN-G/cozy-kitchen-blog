@@ -1,5 +1,5 @@
 body {
-  background-color: #FAF9F6;
+  background-color: #c9abd6;
   color: #4B2E2B;
   font-family: 'Georgia', serif;
   line-height: 1.7;
@@ -25,4 +25,35 @@ h1, h2, h3 {
 main {
   max-width: 700px;
   margin: 3rem auto;
+}
+
+:root {
+  --bg: #0f0f0f;
+  --card: #1a1a1a;
+  --text: #986262;
+  --muted: #bbbbbb;
+  --border: #2a2a2a;
+  --hover: #222;
+  --accent: #a78bfa;   /* lavender */
+  --accent2: #7dd3fc;  /* blue */
+}
+
+[data-theme='dark'] {
+  --bg: #121212;
+  --text: #87b062;
+  --card: #1e1e1e;
+  --accent: #9165c6;
+}
+
+button {
+  color: var(--text);
+  border: 1px solid var(--accent);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-right: 8px;
+}
+
+.active-btn {
+  background-color: var(--accent);
+  color: rgb(209, 186, 186);
 }
