@@ -1,5 +1,6 @@
 ---
 title: "Cozy Kitchen Shop"
+image: "/images/cozyshop2.jpg"
 type: "shop"
 category: "Skin & Hair"
 ---
