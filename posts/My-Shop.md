@@ -1,5 +1,6 @@
 ---
 title: "Cozy Kitchen Shop"
+image: "/images/cozyshop1.jpg"
 type: "shop"
 category: "grocery"
 ---
