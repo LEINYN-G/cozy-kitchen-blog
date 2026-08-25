@@ -130,21 +130,6 @@ export default function Home() {
         <div style={{ position: 'absolute', top: '10%', left: '5%', width: '400px', height: '400px', borderRadius: '50%', background: 'rgba(0, 255, 255, 0.05)', filter: 'blur(100px)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '25%', right: '5%', width: '450px', height: '450px', borderRadius: '50%', background: 'rgba(255, 0, 127, 0.04)', filter: 'blur(120px)', pointerEvents: 'none' }} />
 
-        {/* HERO BRAND INTERFACE */}
-        {/* <header style={{ 
-          maxWidth: '1050px', 
-          margin: '0 auto', 
-          padding: '7rem 1.5rem 4rem 1.5rem', 
-          display: 'flex', 
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '3rem',
-          position: 'relative',
-          zIndex: 2
-        }}> */}
-
          {/* HERO SECTION */}
         <header style={{ 
           maxWidth: '1050px', 
@@ -164,7 +149,7 @@ export default function Home() {
           <div style={{ flex: '1 1 500px', textAlign: 'left' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', backgroundColor: '#141115', border: '1px solid #221d24', borderRadius: '6px', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#ff007f', fontWeight: '600', letterSpacing: '0.5px', marginBottom: '1.5rem' }}>
               <Sparkles style={{ width: '13px', height: '13px', color: '#00ffff' }} />
-              <span>STATUS // ONLINE_NODES</span>
+              <span>STATUS ONLINE</span>
             </div>
 
             <h1 style={{ fontSize: 'clamp(2.5rem, 4.5vw, 4.2rem)', fontWeight: '800', lineHeight: '1.1', color: '#ffffff', letterSpacing: '-0.03em', margin: 0 }}>
