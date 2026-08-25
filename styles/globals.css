@@ -1,59 +1,69 @@
-body {
-  background-color: #0c0a0c;
-  color: #4B2E2B;
-  font-family: 'Georgia', serif;
-  line-height: 1.7;
-  padding: 0 1rem;
+/* Custom Scrollbar for Neo-Tokyo Feel */
+::-webkit-scrollbar {
+  width: 8px;
 }
-
-a {
-  color: #8B5E3C;
-  text-decoration: none;
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
 }
-
-a:hover {
-  text-decoration: underline;
-}
-
-h1, h2, h3 {
-  color: #4B2E2B;
-  font-weight: bold;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-main {
-  max-width: 700px;
-  margin: 3rem auto;
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
 }
 
 :root {
-  --bg: #0f0f0f;
-  --card: #1a1a1a;
-  --text: #986262;
-  --muted: #bbbbbb;
-  --border: #2a2a2a;
-  --hover: #222;
-  --accent: #a78bfa;   /* lavender */
-  --accent2: #7dd3fc;  /* blue */
+  /* Core Colors */
+  --bg-color: #0d0d11;          /* Pure Dark Cyber Background */
+  --text-color: #e2e8f0;        /* Sleek White Text */
+  --text-muted: #94a3b8;        /* Muted Grey Text */
+  --card-bg: #13131a;           /* Dark Card Canvas */
+  --border-color: #1e1e2f;      /* Digital Grid Border */
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  
+  /* Pillar Accents */
+  --accent-tech: #22d3ee;       /* Cyan */
+  --accent-health: #fb7185;     /* Rose Pink */
+  --accent-kitchen: #fbbf24;    /* Amber Gold */
+  --accent-society: #c084fc;    /* Purple */
 }
 
-[data-theme='dark'] {
-  --bg: #121212;
-  --text: #87b062;
-  --card: #1e1e1e;
-  --accent: #9165c6;
+/* Base Elements Override */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-button {
-  color: var(--text);
-  border: 1px solid var(--accent);
-  padding: 6px 12px;
-  border-radius: 999px;
-  margin-right: 8px;
+a {
+  color: var(--accent-tech);
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.active-btn {
-  background-color: var(--accent);
-  color: rgb(209, 186, 186);
+a:hover {
+  filter: brightness(1.2);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Animations for Cyber Glow */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.25; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
 }
