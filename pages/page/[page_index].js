@@ -1,270 +1,4 @@
-/*import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-
-const POSTS_PER_PAGE = 6;
-
-export default function HomePage({ posts, totalPages, currentPage, theme, setTheme }) {
-  const [selectedType, setSelectedType] = useState('recipe');
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const types = ['All', ...new Set(posts.map(p => p.type).filter(Boolean))];
-
-  //filter by Type
-  const typeFiltered = selectedType === 'All'
-    ? posts
-    : posts.filter(post => post.type === selectedType);
- 
-  //filter by Category
-  const categories = [
-    'All',
-    ...new Set(typeFiltered.map(p => p.category).filter(Boolean))
-  ];
-
-  const filtered = selectedCategory === 'All'
-    ? typeFiltered
-    : typeFiltered.filter(post => post.category === selectedCategory);
-
-  const paginated = filtered.slice(0, POSTS_PER_PAGE);
-
-  return (
-    <main style={{ padding: '2rem', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh' }}>
-      <h1 style={{ fontSize: '2rem' }}>🍽️ My Cozy Kitchen</h1>
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-        <label style={{ fontSize: '0.85rem' }}>{theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}</label>
-        <div
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          style={{
-            width: '50px',
-            height: '26px',
-            borderRadius: '30px',
-            backgroundColor: theme === 'light' ? '#ccc' : '#666',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '3px',
-            cursor: 'pointer',
-            transition: 'background 0.3s ease'
-          }}
-        >
-          <div
-            style={{
-              width: '20px',
-              height: '20px',
-              borderRadius: '50%',
-              backgroundColor: '#fff',
-              transform: theme === 'light' ? 'translateX(0)' : 'translateX(24px)',
-              transition: 'transform 0.3s ease'
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Type Filter *//*}
-       <div style={{ marginBottom: '1rem' }}>
-         <label>Explore: </label>
-          {types.map((type) => (
-         <button
-         key={type}
-         onClick={() => {
-         setSelectedType(type);
-         setSelectedCategory('All'); // reset category when type changes
-      }}
-         style={{
-           margin: '0 5px',
-           padding: '6px 12px',
-           borderRadius: '20px',
-           border: selectedType === type ? '2px solid purple' : '1px solid #ccc',
-           background: selectedType === type ? 'lavender' : 'transparent',
-           cursor: 'pointer'
-      }}
-          >
-        {type}
-        </button>
-      ))}
-         </div>
-
-      {/* Category Filter *//*}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <label htmlFor="category">Filter by category: </label>
-        <select
-          id="category"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          style={{
-            padding: '0.5rem',
-            marginLeft: '0.5rem',
-            borderRadius: '6px',
-            border: '1px solid #ccc'
-          }}
-        >
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
-      </div>
-
-
-      {filtered.length === 0 && (
-       <p style={{ textAlign: 'center', marginTop: '2rem' }}>
-          Go to Explote Button!!
-       </p>
-         )}
-
-      {/* Cards *//*}
-      <section style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '1.5rem'
-      }}>
-        {paginated.map((post) => {
-          const isDraft = post.status === 'draft';
-
-          const cardInner = (
-            <div
-              style={{
-                backgroundColor: 'var(--card-bg)',
-                color: 'var(--text-color)',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                boxShadow: '0 4px 10px var(--card-shadow)',
-                opacity: isDraft ? 0.6 : 1,
-                position: 'relative',
-                filter: isDraft ? 'blur(1px)' : 'none',
-                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                pointerEvents: isDraft ? 'none' : 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.12)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 10px var(--card-shadow)'; }}
-            >
-              {isDraft && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.4)',
-                    color: 'white',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    fontSize: '1.2rem',
-                    fontWeight: 'bold',
-                    zIndex: 2,
-                  }}
-                >
-                  🔒 Coming Soon
-                </div>
-              )}
-
-              {/* Responsive thumbnail container (keeps aspect ratio) *//*}
-              <div style={{ width: '100%', position: 'relative', height: 0, paddingTop: '60%' }}>
-                <Image
-                  src={post.image || '/images/default-thumb.jpg'}
-                  alt={post.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 640px) 100vw, 400px"
-                />
-              </div>
-
-              <div style={{ padding: '1rem' }}>
-                <h2 style={{ margin: 0 }}>{post.title}</h2>
-                <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{post.date}</p>
-                <p>{isDraft ? 'This recipe is under wraps for now 👩‍🍳' : `${post.excerpt}...`}</p>
-              </div>
-            </div>
-          );
-
-          return isDraft ? (
-            <div key={post.slug}>{cardInner}</div>
-          ) : (
-            <Link key={post.slug} href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
-              {cardInner}
-            </Link>
-          );
-        })}
-      </section>
-
-      {/* Pagination *//*}
-      <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-        {currentPage > 1 && (
-          <Link href={`/page/${currentPage - 1}`}>
-            <button>⬅ Previous</button>
-          </Link>
-        )}
-        {currentPage < totalPages && (
-          <Link href={`/page/${currentPage + 1}`}>
-            <button>Next ➡</button>
-          </Link>
-        )}
-      </div>
-    </main>
-  );
-}
-
-export async function getStaticPaths() {
-  const files = fs.readdirSync(path.join('posts'));
-  const totalPages = Math.ceil(files.length / POSTS_PER_PAGE);
-
-  const paths = Array.from({ length: totalPages }, (_, i) => ({
-    params: { page_index: (i + 1).toString() }
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  const page = parseInt(params.page_index) || 1;
-  const files = fs.readdirSync(path.join('posts'));
-
-  const posts = files.map((filename) => {
-    const markdown = fs.readFileSync(path.join('posts', filename), 'utf-8');
-    const { data, content } = matter(markdown);
-
-    return {
-      slug: filename.replace('.md', ''),
-      ...data,
-      excerpt: content.split('\n').find((line) => line.trim())?.slice(0, 140) || '',
-    };
-  });
-
-  // Sort: published first (by date desc), drafts last (by date desc)
-  const sortedPosts = posts.sort((a, b) => {
-    const aDraft = a.status === 'draft';
-    const bDraft = b.status === 'draft';
-
-    if (aDraft && !bDraft) return 1;   // a goes after b
-    if (!aDraft && bDraft) return -1;  // a goes before b
-
-    // If both are same type, sort by date (newest first)
-    return new Date(b.date) - new Date(a.date);
-  });
-
-  return {
-    props: {
-      posts: sortedPosts,
-      currentPage: page,
-      totalPages: Math.ceil(sortedPosts.length / POSTS_PER_PAGE),
-    },
-  };
-}*/
-
-import fs from 'fs';
+/* import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
@@ -335,7 +69,7 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
         </div>
       </div>
 
-      {/* Type Filter */}
+      {/* Type Filter 
        <div style={{ marginBottom: '1rem' }}>
          <label>Explore: </label>
           {types.map((type) => (
@@ -359,7 +93,7 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
       ))}
          </div>
 
-      {/* Category Filter */}
+      {/* Category Filter 
       <div style={{ marginBottom: '1.5rem' }}>
         <label htmlFor="category">Filter by category: </label>
         <select
@@ -383,6 +117,306 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
       {filtered.length === 0 && (
        <p style={{ textAlign: 'center', marginTop: '2rem' }}>
           Go to Explote Button!!
+       </p>
+         )}
+
+      {/* Cards *
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '1.5rem'
+      }}>
+        {paginated.map((post) => {
+          const isDraft = post.status === 'draft';
+
+          const cardInner = (
+            <div
+              style={{
+                backgroundColor: 'var(--card-bg)',
+                color: 'var(--text-color)',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 10px var(--card-shadow)',
+                opacity: isDraft ? 0.6 : 1,
+                position: 'relative',
+                filter: isDraft ? 'blur(1px)' : 'none',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                pointerEvents: isDraft ? 'none' : 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.12)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 10px var(--card-shadow)'; }}
+            >
+              {isDraft && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    zIndex: 2,
+                  }}
+                >
+                  🔒 Coming Soon
+                </div>
+              )}
+
+              {/* Responsive thumbnail container (keeps aspect ratio) *
+              <div style={{ width: '100%', position: 'relative', height: 0, paddingTop: '60%' }}>
+                <Image
+                  src={post.image || '/images/default-thumb.jpg'}
+                  alt={post.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 640px) 100vw, 400px"
+                />
+              </div>
+
+              <div style={{ padding: '1rem' }}>
+                <h2 style={{ margin: 0 }}>{post.title}</h2>
+                <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{post.date}</p>
+                <p>{isDraft ? 'This recipe is under wraps for now 👩‍🍳' : `${post.excerpt}...`}</p>
+              </div>
+            </div>
+          );
+
+          return isDraft ? (
+            <div key={post.slug}>{cardInner}</div>
+          ) : (
+            <Link key={post.slug} href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
+              {cardInner}
+            </Link>
+          );
+        })}
+      </section>
+
+      {/* Pagination *
+      <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+        {currentPage > 1 && (
+          <Link href={`/page/${currentPage - 1}`}>
+            <button>⬅ Previous</button>
+          </Link>
+        )}
+        {currentPage < totalPages && (
+          <Link href={`/page/${currentPage + 1}`}>
+            <button>Next ➡</button>
+          </Link>
+        )}
+      </div>
+    </main>
+  );
+}
+
+export async function getStaticPaths() {
+  const files = fs.readdirSync(path.join('posts'));
+  const totalPages = Math.ceil(files.length / POSTS_PER_PAGE);
+
+  const paths = Array.from({ length: totalPages }, (_, i) => ({
+    params: { page_index: (i + 1).toString() }
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const page = parseInt(params.page_index) || 1;
+  const files = fs.readdirSync(path.join('posts'));
+
+  const posts = files.map((filename) => {
+    const markdown = fs.readFileSync(path.join('posts', filename), 'utf-8');
+    const { data, content } = matter(markdown);
+
+    return {
+      slug: filename.replace('.md', ''),
+      ...data,
+      excerpt: content.split('\n').find((line) => line.trim())?.slice(0, 140) || '',
+    };
+  });
+
+  // Sort: published first (by date desc), drafts last (by date desc)
+  const sortedPosts = posts.sort((a, b) => {
+    const aDraft = a.status === 'draft';
+    const bDraft = b.status === 'draft';
+
+    if (aDraft && !bDraft) return 1;   // a goes after b
+    if (!aDraft && bDraft) return -1;  // a goes before b
+
+    // If both are same type, sort by date (newest first)
+    return new Date(b.date) - new Date(a.date);
+  });
+
+  return {
+    props: {
+      posts: sortedPosts,
+      currentPage: page,
+      totalPages: Math.ceil(sortedPosts.length / POSTS_PER_PAGE),
+    },
+  };
+} */
+
+  import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'; // 1. Added Router Import
+
+const POSTS_PER_PAGE = 6;
+
+export default function HomePage({ posts, totalPages, currentPage, theme, setTheme }) {
+  const router = useRouter(); // 2. Initialized Router
+  const { category: queryCategory } = router.query; // URL se ?category= value lega
+
+  // default to showing all types/categories
+  const [selectedType, setSelectedType] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  // 3. EFFECT FOR SYNCING URL QUERY WITH STATE
+  // Jab bhi user homepage ke kisi block par click karke aayega, ye auto-filter kar dega
+  useEffect(() => {
+    if (queryCategory) {
+      // Input queries ko properly format karne ke liye safe conversion
+      const formattedCategory = queryCategory.toString();
+      setSelectedCategory(formattedCategory);
+    } else {
+      setSelectedCategory('All');
+    }
+  }, [queryCategory]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const types = ['All', ...new Set(posts.map(p => p.type).filter(Boolean))];
+
+  //filter by Type
+  const typeFiltered = selectedType === 'All'
+    ? posts
+    : posts.filter(post => post.type === selectedType);
+ 
+  //filter by Category
+  const categories = [
+    'All',
+    ...new Set(posts.map(p => p.category).filter(Boolean)) // modified to show all global categories
+  ];
+
+  const filtered = selectedCategory === 'All'
+    ? typeFiltered
+    : typeFiltered.filter(post => post.category?.toLowerCase() === selectedCategory.toLowerCase());
+
+  const start = (currentPage - 1) * POSTS_PER_PAGE;
+  const paginated = filtered.slice(start, start + POSTS_PER_PAGE);
+
+  return (
+    <main style={{ padding: '2rem', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh' }}>
+      
+      {/* 4. MODIFIED TITLE BASED ON SELECTION */}
+      <h1 style={{ fontSize: '2rem' }}>
+        {selectedCategory !== 'All' ? `📰 Focolove — ${selectedCategory}` : '🍽️ My Cozy Kitchen'}
+      </h1>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+        <label style={{ fontSize: '0.85rem' }}>{theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}</label>
+        <div
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          style={{
+            width: '50px',
+            height: '26px',
+            borderRadius: '30px',
+            backgroundColor: theme === 'light' ? '#ccc' : '#666',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '3px',
+            cursor: 'pointer',
+            transition: 'background 0.3s ease'
+          }}
+        >
+          <div
+            style={{
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              backgroundColor: '#fff',
+              transform: theme === 'light' ? 'translateX(0)' : 'translateX(24px)',
+              transition: 'transform 0.3s ease'
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Type Filter */}
+       <div style={{ marginBottom: '1rem' }}>
+         <label>Explore: </label>
+          {types.map((type) => (
+         <button
+         key={type}
+         onClick={() => {
+         setSelectedType(type);
+         setSelectedCategory('All'); // reset category when type changes
+         router.push(`/page/${currentPage}`, undefined, { shallow: true }); // URL clean out
+      }}
+         style={{
+           margin: '0 5px',
+           padding: '6px 12px',
+           borderRadius: '20px',
+           border: selectedType === type ? '2px solid purple' : '1px solid #ccc',
+           background: selectedType === type ? 'lavender' : 'transparent',
+           color: '#000',
+           cursor: 'pointer'
+      }}
+          >
+        {type}
+        </button>
+      ))}
+         </div>
+
+      {/* Category Filter */}
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label htmlFor="category">Filter by category: </label>
+        <select
+          id="category"
+          value={selectedCategory}
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+            // URL parameter update without reloading full page data
+            if(e.target.value === 'All') {
+              router.push(`/page/${currentPage}`, undefined, { shallow: true });
+            } else {
+              router.push(`/page/${currentPage}?category=${e.target.value}`, undefined, { shallow: true });
+            }
+          }}
+          style={{
+            padding: '0.5rem',
+            marginLeft: '0.5rem',
+            borderRadius: '6px',
+            border: '1px solid #ccc',
+            color: 'var(--text-color)',
+            backgroundColor: 'var(--card-bg)'
+          }}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+      </div>
+
+
+      {filtered.length === 0 && (
+       <p style={{ textAlign: 'center', marginTop: '2rem' }}>
+          No articles found under this category.
        </p>
          )}
 
@@ -448,9 +482,15 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
               </div>
 
               <div style={{ padding: '1rem' }}>
-                <h2 style={{ margin: 0 }}>{post.title}</h2>
+                {/* 5. ADDED BADGE FOR BRAND PILLARS */}
+                {post.category && (
+                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'purple', fontWeight: 'bold' }}>
+                    {post.category}
+                  </span>
+                )}
+                <h2 style={{ margin: '0.2rem 0 0 0' }}>{post.title}</h2>
                 <p style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{post.date}</p>
-                <p>{isDraft ? 'This recipe is under wraps for now 👩‍🍳' : `${post.excerpt}...`}</p>
+                <p>{isDraft ? 'This article is under wraps for now 👩‍💻' : `${post.excerpt}...`}</p>
               </div>
             </div>
           );
@@ -468,12 +508,12 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
       {/* Pagination */}
       <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
         {currentPage > 1 && (
-          <Link href={`/page/${currentPage - 1}`}>
+          <Link href={`/page/${currentPage - 1}${selectedCategory !== 'All' ? `?category=${selectedCategory}` : ''}`}>
             <button>⬅ Previous</button>
           </Link>
         )}
         {currentPage < totalPages && (
-          <Link href={`/page/${currentPage + 1}`}>
+          <Link href={`/page/${currentPage + 1}${selectedCategory !== 'All' ? `?category=${selectedCategory}` : ''}`}>
             <button>Next ➡</button>
           </Link>
         )}
@@ -531,4 +571,5 @@ export async function getStaticProps({ params }) {
     },
   };
 }
+
 
