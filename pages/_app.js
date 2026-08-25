@@ -29,11 +29,11 @@ export default function App({ Component, pageProps }) {
         padding: '1rem',
         fontSize: '0.9rem',
         marginTop: '2rem',
-        borderTop: '1px solid #ccc',
+        borderTop: '1px solid #4fe7ec',
         color: 'var(--text-color)',
         backgroundColor: 'var(--bg-color)'
       }}>
-        © 2025 Nisha. Recipes shared under{' '}
+        © 2025 developed & deployed by Nisha/Lenyn. Join It. Get It.{' '}
         <a
           href="https://creativecommons.org/licenses/by/4.0/"
           target="_blank"
