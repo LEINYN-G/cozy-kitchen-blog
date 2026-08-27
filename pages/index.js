@@ -265,9 +265,48 @@ export default function Home() {
                 <div style={{ position: 'relative', zIndex: 2, padding: '1.5rem' }}>
                   <div style={{ fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#ff007f', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>Founder Node</div>
                   <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '4px', trackingTight: '-0.5px' }}>BIHAR, INDIA</div>
-                  <div style={{ display: 'inline-block', fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", border: '1px solid rgba(255,255,255,0.2)', padding: '2px 8px', borderRadius: '3px', marginTop: '12px', color: '#00ffff' }}>FOCUS_SYSTEM</div>
+                  <div style={{ display: 'inline-block', fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", border: '1px solid rgba(255,255,255,0.2)', padding: '2px 8px', borderRadius: '3px', marginTop: '12px', color: '#00ffff' }}>先頭に立つ</div>
                 </div>
               </div>
+            </div>
+          </div>
+
+         {/* 📊 5. METRICS COUNTER COMPONENT LAYER (TSX Original Replica) */}
+          <div style={{ 
+           width: '100%', 
+            maxWidth: '850px',            // Width ko kam kiya taaki line chhoti aur sleek lage
+            margin: '4rem auto 0 auto',    // Center align karne ke liye margin setup
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', 
+            gap: '1.5rem', 
+            padding: '1.8rem 0',          // Top aur bottom padding thoda kam kiya padding compact karne ke liye
+            borderTop: '1px solid #1c1822',
+            borderBottom: '1px solid #1c1822',
+            position: 'relative',
+            zIndex: 4
+          }}>
+             {/* Node 1: Members */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: "'JetBrains Mono', monospace", tracking: '-1px' }}>1.2K+</div>
+              <div style={{ fontSize: '10px', color: '#39cbd5', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', tracking: '2px', marginTop: '4px' }}>Members</div>
+            </div>
+
+            {/* Node 2: Opportunities */}
+            <div style={{ textAlign: 'center', borderLeft: '1px solid rgba(255, 255, 255, 0.03)' }} className="metric-border">
+              <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: "'JetBrains Mono', monospace", tracking: '-1px' }}>230+</div>
+              <div style={{ fontSize: '10px', color: '#39cbd5', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', tracking: '2px', marginTop: '4px' }}>Opportunities</div>
+            </div>
+
+            {/* Node 3: Events */}
+            <div style={{ textAlign: 'center', borderLeft: '1px solid rgba(255, 255, 255, 0.03)' }} className="metric-border">
+              <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: "'JetBrains Mono', monospace", tracking: '-1px' }}>75+</div>
+              <div style={{ fontSize: '10px', color: '#39cbd5', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', tracking: '2px', marginTop: '4px' }}>Events</div>
+            </div>
+
+            {/* Node 4: Community Availability */}
+            <div style={{ textAlign: 'center', borderLeft: '1px solid rgba(255, 255, 255, 0.03)' }} className="metric-border">
+              <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ffffff', fontFamily: "'JetBrains Mono', monospace", tracking: '-1px' }}>24/7</div>
+              <div style={{ fontSize: '10px', color: '#39cbd5', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', tracking: '2px', marginTop: '4px' }}>Community</div>
             </div>
           </div>
 
@@ -282,7 +321,7 @@ export default function Home() {
             </h2>
           </div>
 
-                    {/* Clean Dashboard Nodes */}
+        {/* Clean Dashboard Nodes */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
             {pillars.map((pillar, idx) => (
               <div 
@@ -384,6 +423,15 @@ export default function Home() {
         .pulse-wave {
           animation: pulseGreen 2s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
         }
+
+        @media (max-width: 640px) {
+          .metric-border {
+            border-left: none !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 1rem;
+          }
+        }
+
       `}</style>
     </>
   );
