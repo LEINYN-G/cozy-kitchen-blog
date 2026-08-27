@@ -11,7 +11,7 @@ export default function Home() {
       link: "/page/1?category=Tech", 
       status: "ACTIVE_NODE",
       accent: '#00ffff',
-      glowColor: 'rgba(0, 255, 255, 0.15)'
+      glowColor: 'rgba(40, 169, 169, 0.15)'
     },
     {
       title: "Mental Well-being",
@@ -27,9 +27,9 @@ export default function Home() {
       icon: <Coffee style={{ color: '#ffaa00', width: '20px', height: '20px' }} />,
       desc: "Healthy food, coffee science, and recipes crafted to fuel your brain and body.",
       link: "/cozy-kitchen", 
-      status: "CORE_ENG",
+      status: "CORE_LVG",
       accent: '#ffaa00',
-      glowColor: 'rgba(255, 170, 0, 0.15)'
+      glowColor: 'rgba(174, 131, 44, 0.15)'
     },
     {
       title: "Society & Awareness",
@@ -38,7 +38,7 @@ export default function Home() {
       link: "/page/1?category=Society",
       status: "BROADCAST",
       accent: '#b55fe6',
-      glowColor: 'rgba(181, 95, 230, 0.15)'
+      glowColor: 'rgba(172, 85, 223, 0.15)'
     }
   ];
 
@@ -60,7 +60,7 @@ export default function Home() {
         fontFamily: "'Plus Jakarta Sans', sans-serif"
       }}>
 
-        {/* 1. BRAND NAVBAR (TSX-Inspired Alignment) */}
+        {/* 1. BRAND NAVBAR */}
         <nav style={{
           position: 'fixed',
           top: 0,
@@ -71,16 +71,16 @@ export default function Home() {
           backdropFilter: 'blur(12px)',
           borderBottom: '1px solid #1c1822',
           zIndex: 100,
-           display: 'flex',
+          display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 2rem'
         }}>
 
         {/* Logo Terminal Node */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#00ffff', fontWeight: '800', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#00ffff', fontWeight: '800', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none', textShadow: '0 0 12px rgba(0, 255, 255, 0.85), 0 0 4px rgba(0, 255, 255, 0.4)'}}>
             <Sparkles style={{ width: '16px', height: '16px' }} />
-            <span>⚡ NT_HUB</span>
+            <span>NT_HUB</span>
           </Link>
 
         {/* Core Routes Links */}
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
 
            {/* Action CTA Trigger */}
-          <Link href="/cozy-kitchen" style={{ display: 'inline-flex', alignItems: 'center', padding: '8px 20px', backgroundColor: '#ff007f', color: '#ffffff', fontWeight: '700', borderRadius: '4px', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', textTransform: 'uppercase', textDecoration: 'none', transition: 'all 0.3s' }} className="btn-pink">
+          <Link href="/cozy-kitchen" style={{ display: 'inline-flex', alignItems: 'center', padding: '8px 20px', backgroundColor: '#ff007f', color: '#ffffff', fontWeight: '700', borderRadius: '4px', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', textTransform: 'uppercase', textDecoration: 'none', transition: 'all 0.5s' }} className="btn-pink">
             JOIN COMMUNITY
           </Link>
         </nav>
@@ -108,8 +108,8 @@ export default function Home() {
           backgroundImage: "url('/images/lenyn.jpg')", // Save your 3rd image here
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.17, // Blends subtly with darkness
-          mixBlendMode: 'luminosity',
+          opacity: 0.35, // Blends subtly with darkness
+          
           pointerEvents: 'none',
           zIndex: 1
         }}></div>
@@ -130,7 +130,7 @@ export default function Home() {
         <div style={{ position: 'absolute', top: '10%', left: '5%', width: '400px', height: '400px', borderRadius: '50%', background: 'rgba(0, 255, 255, 0.05)', filter: 'blur(100px)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '25%', right: '5%', width: '450px', height: '450px', borderRadius: '50%', background: 'rgba(255, 0, 127, 0.04)', filter: 'blur(120px)', pointerEvents: 'none' }} />
 
-         {/* HERO SECTION */}
+         {/* HERO HEADER AREA */}
         <header style={{ 
           maxWidth: '1050px', 
           margin: '0 auto', 
@@ -144,21 +144,82 @@ export default function Home() {
           position: 'relative',
           zIndex: 3
         }}>
+
+          {/* Left Text Dashboard Container */}
+          <div style={{ flex: '1 1 500px', textAlign: 'left' }}></div>
           
-          {/* Left Text Block */}
-          <div style={{ flex: '1 1 500px', textAlign: 'left' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', backgroundColor: '#141115', border: '1px solid #221d24', borderRadius: '6px', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#ff007f', fontWeight: '600', letterSpacing: '0.5px', marginBottom: '1.5rem' }}>
-              <Sparkles style={{ width: '13px', height: '13px', color: '#00ffff' }} />
+          {/* DYNAMIC CYBER GREEN STATUS BLOCK */}
+          <div style={{ flex:'1 1 500px', textAlign: 'left' }}>
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '10px', 
+              fontSize: '11px', 
+              fontFamily: "'JetBrains Mono', monospace", 
+              color: '#1ae04e', 
+              fontWeight: '600', 
+              letterSpacing: '0.5px', 
+              marginBottom: '1rem'
+            }}>
+            {/* Dynamic Outer Ring + Inner Dot Pulse */}
+              <span style={{ position: 'relative', display: 'flex', width: '8px', height: '8px' }}>
+                <span className="pulse-wave" style={{ 
+                  position: 'absolute', 
+                  inlineSize: '100%', 
+                  blockSize: '100%', 
+                  borderRadius: '50%', 
+                  backgroundColor: '#1ae04e', 
+                  opacity: 0.75 
+                }}></span>
+             <span style={{ 
+                  position: 'relative', 
+                  display: 'inline-block', 
+                  borderRadius: '50%', 
+                  width: '8px', 
+                  height: '8px', 
+                  backgroundColor: '#1ae04e',
+                  boxShadow: '0 0 10px #1ae04e'
+                }}></span>
+              </span>
               <span>STATUS ONLINE</span>
             </div>
 
-            <h1 style={{ fontSize: 'clamp(2.5rem, 4.5vw, 4.2rem)', fontWeight: '800', lineHeight: '1.1', color: '#ffffff', letterSpacing: '-0.03em', margin: 0 }}>
-              BUILD SKILLS <br />
-              <span style={{ color: 'transparent', WebkitTextStroke: '1px #ffffff', opacity: 0.9 }}>CREATE FUTURE</span>
+            {/* 3. JAPANESE LANGUAGE SUB-TAG EXTRA NODE */}
+            <div style={{ 
+              fontSize: '12px', 
+              color: '#00ffff', 
+              fontFamily: "'JetBrains Mono', monospace", 
+              letterSpacing: '3px',
+              opacity: 0.8,
+              marginBottom: '0.5rem'
+            }}>
+              スキルを構築する
+            </div>
+
+            {/* 4. EXACT REPLICA GRAPHIC TYPOGRAPHY WITH SPLIT STYLES */}
+            <h1 style={{ 
+              fontSize: 'clamp(2.8rem, 5vw, 4.5rem)', 
+              fontWeight: '800', 
+              lineHeight: '1.05', 
+              color: '#ffffff', 
+              letterSpacing: '-0.03em', 
+              margin: 0,
+              textTransform: 'uppercase'
+            }}>
+               BUILD SKILLS <br />
+              <span style={{ 
+                background: 'linear-gradient(90deg, #00f0ff, #8d2fa7, #ff00aa)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block',
+                marginTop: '4px'
+              }}>
+                CREATE FUTURE
+              </span>
             </h1>
 
-            <p style={{ marginTop: '1.5rem', fontSize: '1.05rem', color: '#a0a0b0', maxWidth: '540px', fontWeight: '300', lineHeight: '1.7', margin: '1.5rem 0 2.5rem 0' }}>
-              Join the Focolove network ecosystem. Code clean components, structure cognitive mental clarity frameworks, and engineer local culinary architectures.
+            <p style={{ marginTop: '1.5rem', fontSize: '1.05rem', color: '#a0a0b0', maxWidth: '540px', fontWeight: '300', lineHeight: '1.7', margin: '1rem 0 2.5rem 0' }}>
+              Join the Neo-Tokyo focolove Hub. Code, connect, and build your future with 1,200+ youth creators.
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
@@ -170,6 +231,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
+          
 
           {/* 2. Right Side Glowing Circular Holographic Display */}
           <div style={{ flex: '1 1 350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -307,6 +369,20 @@ export default function Home() {
         }
         .holo-circle {
           animation: rotateHolo 20s infinite linear;
+        }
+                /* Dynamic Green Pulse Ring Keyframe */
+        @keyframes pulseGreen {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(2.8);
+            opacity: 0;
+          }
+        }
+        .pulse-wave {
+          animation: pulseGreen 2s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
         }
       `}</style>
     </>
