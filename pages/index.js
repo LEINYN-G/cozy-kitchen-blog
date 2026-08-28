@@ -264,7 +264,7 @@ export default function Home() {
                 <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(12, 10, 12, 0.75)', zIndex: 1 }}></div>
                 <div style={{ position: 'relative', zIndex: 2, padding: '1.5rem' }}>
                   <div style={{ fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", color: '#ff007f', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>Founder Node</div>
-                  <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '4px', trackingTight: '-0.5px' }}>BIHAR, INDIA</div>
+                  <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '4px', trackingTight: '-0.5px' }}>MUMBAI, INDIA</div>
                   <div style={{ display: 'inline-block', fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", border: '1px solid rgba(255,255,255,0.2)', padding: '2px 8px', borderRadius: '3px', marginTop: '12px', color: '#00ffff' }}>先頭に立つ</div>
                 </div>
               </div>
