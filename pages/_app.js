@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
         color: 'var(--text-color)',
         backgroundColor: 'var(--bg-color)'
       }}>
-        © 2025 developed & deployed by Nisha/Lenyn. Join It. Get It.{' '}
+         © Copyright Focolove. Designed by Nisha. Join It. Get It.{' '}
         <a
           href="https://creativecommons.org/licenses/by/4.0/"
           target="_blank"
