@@ -244,7 +244,7 @@ export default function PostPage({ frontmatter, contentHtml, theme, setTheme }) 
         )}
       </article>
 
-      {/* Comments */}
+      {/* Comment-section*/}
       <div style={{ maxWidth: '800px', margin: '1.5rem auto' }}>
         <CommentBox slug={slug} />
       </div>
