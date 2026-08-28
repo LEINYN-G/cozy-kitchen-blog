@@ -449,6 +449,9 @@ export default function Home() {
           }
         }
 
+        html {
+          scroll-behavior: smooth !important;
+        }
       `}</style>
     </>
   );
