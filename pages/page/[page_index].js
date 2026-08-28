@@ -17,8 +17,7 @@ export default function HomePage({ posts, totalPages, currentPage, theme, setThe
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   // 3. EFFECT FOR SYNCING URL QUERY WITH STATE
-  // Jab bhi user homepage ke kisi block par click karke aayega, ye auto-filter kar dega
-  useEffect(() => {
+    useEffect(() => {
     if (queryCategory) {
       // Input queries ko properly format karne ke liye safe conversion
       const formattedCategory = queryCategory.toString();
