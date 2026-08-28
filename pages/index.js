@@ -67,7 +67,7 @@ export default function Home() {
           left: 0,
           right: 0,
           height: '70px',
-          backgroundColor: 'rgba(12, 10, 12, 0.8)',
+          backgroundColor: 'rgba(12, 10, 12, 0.85)',
           backdropFilter: 'blur(12px)',
           borderBottom: '1px solid #1c1822',
           zIndex: 100,
@@ -83,13 +83,30 @@ export default function Home() {
             <span>NT_HUB</span>
           </Link>
 
-        {/* Core Routes Links */}
+        {/* Core Routes Links - Mapped to correct category state filters */}
           <div className="nav-links" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <Link href="/" style={{ color: '#ffffff', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>Home</Link>
-            <Link href="/page/1?category=Tech" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>Tech</Link>
-            <Link href="/cozy-kitchen" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>Kitchen</Link>
-            <Link href="/page/1?category=Mental-Health" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>Well-being</Link>
-            <Link href="/page/1?category=Society" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>Society</Link>
+            <Link href="/" style={{ color: '#ffffff', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>
+              Home
+            </Link>
+             {/* Navigates to Page 1 with Tech filter query */}
+            <a href="#data-channels" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>
+              Tech
+            </a>
+            
+            {/* Directly calls your dedicated legacy kitchen splash screen */}
+            <Link href="/cozy-kitchen" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>
+              Kitchen
+            </Link>
+
+            {/* Navigates to Page 1 with Mental-Health query */}
+            <Link href="/page/1?category=Mental-Health" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>
+              Well-being
+            </Link>
+            
+            {/* Navigates to Page 1 with Society query */}
+            <a href="#data-channels" style={{ color: '#a0a0b0', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', fontFamily: "'JetBrains Mono', monospace", textDecoration: 'none' }}>
+              Society
+            </a>
           </div>
 
            {/* Action CTA Trigger */}
@@ -312,8 +329,8 @@ export default function Home() {
 
         </header>
 
-        {/* COMPONENT NODES ROW */}
-        <section style={{ maxWidth: '1050px', margin: '2rem auto 0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 2 }}>
+        {/* COMPONENT NODES ROW cards-section */}
+        <section id="data-channels" style={{ maxWidth: '1050px', margin: '2rem auto 0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 2 }}>
           <div style={{ marginBottom: '2.5rem', borderBottom: '1px solid #1c1822', paddingBottom: '1rem' }}>
             <h2 style={{ fontSize: '1.3rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '10px', color: '#ffffff', fontFamily: "'JetBrains Mono', monospace" }}>
               <LayoutGrid style={{ color: '#00ffff', width: '18px', height: '18px' }} />
