@@ -448,7 +448,7 @@ export default function Home() {
             padding-top: 1rem;
           }
         }
-
+          
         html {
           scroll-behavior: smooth !important;
         }
