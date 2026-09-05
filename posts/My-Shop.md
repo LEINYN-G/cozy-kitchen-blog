@@ -1,7 +1,9 @@
 ---
-title: "Cozy Kitchen Shop"
-image: "/images/cozyshop1.jpg"
+title: "SYSTEM_OPTIMIZATION // CONSUMPTION_LOGS"
+image: "/images/diet (1).jpeg"
+date:  "2026-06-16"
 type: "shop"
+views: "2.5k"
 category: "grocery"
 ---
 
