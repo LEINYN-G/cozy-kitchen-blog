@@ -35,6 +35,27 @@ export default function CommentBox({ slug }) {
     }
   };
 
+  // 🚀 1. UNIQUE SEED GENERATOR FOR REALISTIC FAKE COMMENTS COUNT
+  // Yeh algorithm har single slug ke name ke rules par unique number create karega
+    {/* 🚀 FIXED: DYNAMIC VARIABLE SEED GENERATOR FOR ACCURATE RANDOM COMMENTS COUNT */}
+  const generateFakeCommentCount = (postSlug) => {
+    if (!postSlug) return 4;
+    
+    // Slugs ki character weights calculation mechanism loop
+    let charWeightSum = 0;
+    for (let i = 0; i < postSlug.length; i++) {
+      charWeightSum += postSlug.charCodeAt(i) * (i + 1); // Mutliplied by index position to ensure variations
+    }
+    
+    // Alag-alag random baseline metrics create karne ka matrix algorithm (Range: 4 se 18 comments)
+    const randomizedBaseline = (charWeightSum % 15) + 4; 
+    
+    // Real comment dynamically add default balance framework logic tracking
+    return randomizedBaseline + comments.length;
+  };
+
+  const dynamicCommentsCount = generateFakeCommentCount(slug);
+
   return (
     <section style={{ marginTop: '3rem', background: 'var(--card-bg)', borderRadius: '12px', padding: '2rem', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}>
       <h2 style={{ marginBottom: '1rem', fontSize: '1.4rem' }}>💬 Leave a Comment</h2>
@@ -72,7 +93,21 @@ export default function CommentBox({ slug }) {
 
       <hr style={{ margin: '2rem 0', opacity: 0.2 }} />
 
-      <h3 style={{ marginBottom: '1rem' }}>💌 {comments.length} Comment(s)</h3>
+      {/* 🚀 2. REPLACED OLD TITLE WITH TERMINAL DATA LOGGER GRID */}
+      <h3 style={{ 
+        marginBottom: '1.5rem', 
+        fontSize: '13px', 
+        fontFamily: "'JetBrains Mono', monospace", 
+        color: '#ff007f', 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: '6px',
+        fontWeight: '600'
+      }}>
+        <span>💟</span>
+        <span>DATABASE_NODES // {dynamicCommentsCount} FEEDBACK_LOGS FOUND</span>
+      </h3>
+
       <div>
         {comments.map((c, i) => (
           <div key={i} style={{
@@ -102,11 +137,14 @@ const inputStyle = {
 };
 
 const buttonStyle = {
-  backgroundColor: '#2edb7f',
+  backgroundColor: '#ff007f', // Cyber Pink color to match the core style
   color: '#fff',
   border: 'none',
   padding: '0.7rem 1.2rem',
   borderRadius: '8px',
   cursor: 'pointer',
   fontWeight: 'bold',
+  fontFamily: "'JetBrains Mono', monospace",
+  fontSize: '12px',
+  letterSpacing: '0.5px'
 };
