@@ -1,7 +1,8 @@
 ---
-title: "Cozy Kitchen Shop"
-image: "/images/cozyshop2.jpg"
+title: "CELLULAR_REPAIR // MATRIX_STORE"
+image: "/images/skincare.jpeg"
 type: "shop"
+date: "2026-06-16"
 category: "Skin & Hair"
 ---
 
