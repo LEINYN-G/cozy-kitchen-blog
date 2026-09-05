@@ -102,7 +102,7 @@ const inputStyle = {
 };
 
 const buttonStyle = {
-  backgroundColor: '#7b4c3a',
+  backgroundColor: '#2edb7f',
   color: '#fff',
   border: 'none',
   padding: '0.7rem 1.2rem',
