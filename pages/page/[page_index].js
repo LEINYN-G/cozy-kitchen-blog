@@ -352,8 +352,45 @@ export default function HomePage({ posts, totalPages, currentPage }) {
             zIndex: 1
           }}
         >
-          {paginated.map(post => {
+                    {/* CARDS DATA STREAM WITH DYNAMIC VIEWS AND SHARE HANDLERS */}
+          {paginated.map((post) => {
             const isDraft = post.status === 'draft';
+
+            //  DYNAMIC SEED FUNCTION FOR RANDOM UNIQUE VIEWS PER CARD
+            // Title key strings ke base par realistic technical data compute karega
+            const generateUniqueViews = (titleString) => {
+              if (!titleString) return '42';
+              let seed = 0;
+              for (let i = 0; i < titleString.length; i++) {
+                seed += titleString.charCodeAt(i);
+              }
+              const calculatedViews = (seed * 7) % 890 + 110; // Generates safe stable metric between 110 and 1000
+              return calculatedViews > 700 
+                ? `${(calculatedViews / 100).toFixed(1)}K` 
+                : `${calculatedViews}`;
+            };
+
+            //  FIXED: Agar Markdown mein views manually diye hain toh wahi dikhayega, nahi toh auto-generate karega
+            const postViews = post.views ? post.views : generateUniqueViews(post.title);
+
+
+            //  INTERACTION SHARE HANDLER
+            const handleShareNode = (e, postSlug, postTitle) => {
+              e.preventDefault(); // Default tracking click block intercept prevent
+              e.stopPropagation(); // Prevents card parent click from opening post link
+              
+              const securePath = `${window.location.origin}/posts/${postSlug}`;
+              if (navigator.share) {
+                navigator.share({
+                  title: postTitle,
+                  text: `Accessing Focolove data node: ${postTitle}`,
+                  url: securePath,
+                }).catch(() => {});
+              } else {
+                navigator.clipboard.writeText(securePath);
+                alert(`// NODE_PATH_COPIED_TO_CLIPBOARD: ${securePath}`);
+              }
+            };
 
             const cardInner = (
               <div
@@ -368,7 +405,8 @@ export default function HomePage({ posts, totalPages, currentPage }) {
                   position: 'relative',
                   display: 'flex',
                   flexDirection: 'column',
-                  cursor: isDraft ? 'not-allowed' : 'pointer'
+                  cursor: isDraft ? 'not-allowed' : 'pointer',
+                  height: '100%'
                 }}
               >
                 {isDraft && (
@@ -392,19 +430,10 @@ export default function HomePage({ posts, totalPages, currentPage }) {
                   </div>
                 )}
 
-                <div
-                  style={{
-                    width: '100%',
-                    position: 'relative',
-                    height: 0,
-                    paddingTop: '56.25%'
-                  }}
-                >
+                {/* Responsive thumbnail box */}
+                <div style={{ width: '100%', position: 'relative', height: 0, paddingTop: '56.25%' }}>
                   <Image
-                    src={
-                      post.image ||
-                      '/images/default-thumb.jpg'
-                    }
+                    src={post.image || '/images/default-thumb.jpg'}
                     alt={post.title}
                     fill
                     style={{ objectFit: 'cover' }}
@@ -412,84 +441,93 @@ export default function HomePage({ posts, totalPages, currentPage }) {
                   />
                 </div>
 
-                <div
-                  style={{
-                    padding: '1.5rem',
-                    flexGrow: 1,
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  {post.category && (
-                    <span
-                      style={{
-                        fontSize: '10px',
-                        fontFamily: "'JetBrains Mono', monospace",
-                        textTransform: 'uppercase',
-                        color: getCategoryColor(
-                          post.category
-                        ),
-                        fontWeight: 'bold',
-                        letterSpacing: '0.5px'
-                      }}
-                    >
-                      {post.category}
-                    </span>
-                  )}
+                {/* Content text nodes block */}
+                <div style={{ padding: '1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column', justify: 'space-between' }}>
+                  <div>
+                    {post.category && (
+                      <span style={{ fontSize: '10px', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', color: getCategoryColor(post.category), fontWeight: 'bold', letterSpacing: '0.5px' }}>
+                        {post.category}
+                      </span>
+                    )}
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#ffffff', margin: '0.4rem 0', minHeight: '3rem' }}>
+                      {post.title}
+                    </h2>
+                    <p style={{ color: '#8c8c9e', fontSize: '13px', lineHeight: '1.6', margin: '0 0 1.5rem 0', fontWeight: '300' }}>
+                      {isDraft ? 'Secure decryption protocols required to review this file.' : `${post.excerpt}...`}
+                    </p>
+                  </div>
 
-                  <h2
-                    style={{
-                      fontSize: '1.25rem',
-                      fontWeight: '700',
-                      color: '#ffffff',
-                      margin: '0.4rem 0'
-                    }}
-                  >
-                    {post.title}
-                  </h2>
+                {/* 📊 ADVANCED DATA INTERACTION FOOTER PANEL */}
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between', 
+                    borderTop: '1px solid #1c1822', 
+                    paddingTop: '1rem',
+                    marginTop: 'auto'
+                  }}>
+                    {/* Log Metrics Data */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                      <span style={{ fontSize: '10px', color: '#64748b', fontFamily: "'JetBrains Mono', monospace" }}>
+                        LOG: {post.date || '0000-00-00'}
+                      </span>
+                      
+                      {/* FIXED: Restricted posts par views hide karne ke liye dynamic check condition */}
+                      {isDraft ? (
+                        <span style={{ fontSize: '10px', color: '#ef4444', fontFamily: "'JetBrains Mono', monospace", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ inlineSize: '4px', blockSize: '4px', borderRadius: '50%', backgroundColor: '#ef4444', display: 'inline-block' }}></span>
+                          METRIC // ENCRYPTED
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '10px', color: '#34d399', fontFamily: "'JetBrains Mono', monospace", display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ inlineSize: '4px', blockSize: '4px', borderRadius: '50%', backgroundColor: '#10b981', display: 'inline-block' }}></span>
+                          READS // {postViews}
+                        </span>
+                      )}
+                    </div>
 
-                  <p
-                    style={{
-                      color: '#64748b',
-                      fontSize: '11px',
-                      fontFamily: "'JetBrains Mono', monospace",
-                      margin: '0 0 1rem 0'
-                    }}
-                  >
-                    [{post.date}]
-                  </p>
-
-                  <p
-                    style={{
-                      color: '#8c8c9e',
-                      fontSize: '13px',
-                      lineHeight: '1.6',
-                      margin: 0,
-                      fontWeight: '300'
-                    }}
-                  >
-                    {isDraft
-                      ? 'Secure decryption protocols required to review this file.'
-                      : `${post.excerpt}...`}
-                  </p>
+                    {/* Operational Share Control Trigger */}
+                    {isDraft ? (
+                      // Locked node terminal display style text indicator instead of button
+                      <span style={{ fontSize: '10px', color: '#5c5c6e', fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase' }}>
+                        [ACCESS_DENIED]
+                      </span>
+                    ) : (
+                      <button
+                        onClick={(e) => handleShareNode(e, post.slug, post.title)}
+                        style={{
+                          backgroundColor: 'rgba(0, 255, 255, 0.05)',
+                          border: '1px solid #00ffff',
+                          color: '#00ffff',
+                          borderRadius: '4px',
+                          padding: '4px 10px',
+                          fontSize: '10px',
+                          fontFamily: "'JetBrains Mono', monospace",
+                          cursor: 'pointer',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          transition: 'all 0.2s',
+                          marginRight: 0
+                        }}
+                        className="share-btn-node"
+                      >
+                        SHARE_NODE
+                      </button>
+                    )}
+                  </div>  
                 </div>
               </div>
             );
 
             return isDraft ? (
-              <div key={post.slug}>
-                {cardInner}
-              </div>
+              <div key={post.slug}>{cardInner}</div>
             ) : (
-              <Link
-                href={`/posts/${post.slug}`}
-                key={post.slug}
-                style={{ textDecoration: 'none' }}
-              >
+              <Link key={post.slug} href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
                 {cardInner}
               </Link>
             );
           })}
+
         </section>
 
        {/* 🛠️ FIXED PAGINATION PANEL (Removes hard routes that trigger 404) */}
@@ -570,6 +608,14 @@ export default function HomePage({ posts, totalPages, currentPage }) {
             color: #00ffff;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
           }
+
+          .share-btn-node:hover {
+            background-color: #00ffff !important;
+            color: #0c0a0c !important;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+
         `}</style>
       </main>
     </>
@@ -612,11 +658,10 @@ export async function getStaticProps({ params }) {
     return {
       slug: filename.replace('.md', ''),
       ...data,
-      excerpt:
-        content
-          .split('\n')
-          .find(line => line.trim())
-          ?.slice(0, 140)
+      excerpt: content.split('\n')
+  .find((line) => line.trim())
+  ?.replace(/[#*`_]/g, '') // It will clean all the markdown symbols automatically
+  ?.slice(0, 120)
     };
   });
 
