@@ -119,17 +119,17 @@ export default function Home() {
             zIndex: 3,
           }}
         >
-          In a world that’s always rushing, Focolove was born to remind us to slow down — to find warmth in a freshly brewed cup and joy in a wholesome meal.
-          It began in a Cozy Kitchen, where every recipe is crafted with care, tested with love, and shared with honesty.
-
-          Here, food isn’t just fuel — it’s a way to heal, connect, and live consciously. Whether you’re trying a new pasta recipe, exploring the latest coffee trends, 
-          or discovering mindful meal ideas, Focolove brings you tasted and tested, health-focused recipes that nourish both body and soul.
-          So brew your favorite cup, pull up a chair, and let’s make every day a little more cozy — one delicious moment at a time. ☕🍰
-
-          💌 My Promise
-
-          At Focolove, I share only what I truly enjoy — recipes tested, tasted, and loved.🍽️ 
-          This is my way of spreading warmth through food and coffee.
+           In a high-velocity global environment, Focolove operates as a research interface for decelerated, mindful human optimization. We analyze the neurochemical warmth of precise brewing mechanics alongside the biological bio-availability of micronutrient-dense, wholesome whole foods. 
+          <br /><br />
+          Every formula originates inside the Cozy Kitchen Lab —a testing ground engineered for strict sensory calibration, computational recipe tracking, and empirical ingredient validation. Here, nutrition isn't viewed merely as metabolic fuel; it is structured as a physiological pathway to neurological healing, cellular connection, and conscious homeostasis. 
+          <br /><br />
+          Whether decrypting multi-molecular coffee extraction graphs or designing custom low-glycemic, anti-inflammatory dietary frameworks, Focolove delivers clinically evaluated, health-focused blueprints designed to sustain both metabolic stamina and cognitive architecture.
+          <br /><br />
+          <span style={{ color: '#e7cfb7', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.85rem', tracking: '1px' }}>
+            🧪 METRIC PROMISE // ZERO DISINFORMATION
+          </span>
+          <br />
+          We publish exclusively verified data. Every single component is cross-tested, bio-evaluated, and verified for peak systemic synergy. This is our protocol for engineering thermal human comfort through analytical food science.
         </motion.p>
 
         {/* ☕ Explore Button */}
