@@ -125,7 +125,7 @@ export default function Home() {
           <br /><br />
           Whether decrypting multi-molecular coffee extraction graphs or designing custom low-glycemic, anti-inflammatory dietary frameworks, Focolove delivers clinically evaluated, health-focused blueprints designed to sustain both metabolic stamina and cognitive architecture.
           <br /><br />
-          <span style={{ color: '#e7cfb7', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.85rem', tracking: '1px' }}>
+          <span style={{ color: '#5ef563', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.85rem', tracking: '1px' }}>
             🧪 METRIC PROMISE // ZERO DISINFORMATION
           </span>
           <br />
@@ -143,12 +143,12 @@ export default function Home() {
             <motion.button
               whileHover={{
                 scale: 1.08,
-                boxShadow: "0 8px 30px rgba(230, 190, 150, 0.8)",
+                boxShadow: "0 8px 30px rgb(154, 237, 126)",
               }}
               whileTap={{ scale: 0.95 }}
               style={{
                 background:
-                  "linear-gradient(90deg, #e7cfb7 0%, #b78c65 100%)",
+                  "linear-gradient(90deg, #a5f2b1 0%, #44c439 100%)",
                 color: "#3e2f23",
                 border: "none",
                 borderRadius: "40px",
