@@ -86,7 +86,7 @@ export default function Home() {
             zIndex: 3,
           }}
         >
-          Brew. Cook. Love. Repeat.
+          Brew. Cook. Love. Repeat.🌿
         </motion.h2>
 
         <motion.h1
