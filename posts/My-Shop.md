@@ -5,6 +5,10 @@ date:  "2026-06-16"
 type: "shop"
 views: "2.5k"
 category: "grocery"
+
+# products img
+beans_img: "/images/shop/boston-beans.jpg"
+oats_img: "/images/shop/oats.jpg"
 ---
 
 ## 🧺 Essentials for a Healthy, Cozy Life
