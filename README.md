@@ -6,7 +6,17 @@
 
 Welcome to **Focolove System**, a decentralized, multi-disciplinary network interface designed to counter modern cognitive degradation (brain rot) and digital fatigue. We bridge software engineering architectures, global socioeconomic diagnostics, human rights critique, mental resilience, and advanced culinary biophysics into a singular ecosystem.
 
-Focolove operates not just as a publication, but as an open-source research infrastructure where local and international builders, thinkers, and activists connect, publish dynamic data logs, and optimize their cognitive and professional architectures.
+Focolove operates as a secure, production-grade proprietary platform designed to function as an international network hub for human optimization, digital wellness, and technical research. The infrastructure bridges low-level software engineering paradigms, socioeconomic analytics, and molecular nourishment science into a unified secure ecosystem.
+
+---
+
+## 🌍 Official Live Infrastructure Access
+The core system layer is fully deployed and accessible globally at:
+🔗 **Official Web Portal:** [https://focolove.com](https://focolove.com)
+
+*// Operational Note: This repository contains proprietary business configurations. Local replication, unauthorized compilation, and cloning protocols are legally restricted.*
+
+---
 
 ---
 
@@ -47,26 +57,6 @@ The publication structure is architected into 4 standalone data channels to guid
 
 ---
 
-## 📜 System Execution Setup
-
-To initialize the interface locally inside your development workspace environment:
-
-```bash
-# Clone the repository node
-git clone https://github.com
-
-# Move into the server folder directory
-cd Focolove_community
-
-# Install system dependency packages
-npm install
-
-# Initialize the local local-host runtime server pipeline
-npm run dev
-```
-
-The interface will mount securely at `http://localhost:3000`.
-
 ---
 ## 💌 About the Principal Architecture Director
 
@@ -77,3 +67,7 @@ Engineered and supervised by **Nisha/Lenin**, a systems software developer and c
 ---
 ## 🧾 Operational License
 Distributed under the **MIT Open-Source License**. Feel free to fork, expand the databanks, deploy your local nodes, and scale the community infrastructure — but please preserve the original ecosystem credit arrays 🌷.
+
+## 🧾 Legal & Intellectual Property Rights
+© 2026 FOCOLOVE SYSTEM. All rights reserved. 
+The software code, layout mechanics, database designs, graphics, and text content contained within this repository are proprietary and confidential. Unauthorized copying, modification, local execution, distribution, or reverse engineering of any portion of this repository is strictly prohibited.
