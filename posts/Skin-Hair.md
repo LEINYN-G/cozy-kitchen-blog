@@ -4,6 +4,12 @@ image: "/images/skincare.jpeg"
 type: "shop"
 date: "2026-06-16"
 category: "Skin & Hair"
+# products img
+almond_img: "/images/shop/almond-oil.jpg"
+lavender_img: "/images/shop/lavender-oil.jpg"
+teatree_img: "/images/shop/tea-tree.jpg"
+beans_img: "/images/shop/boston-beans.jpg"
+oats_img: "/images/shop/oats.jpg"
 ---
 
 ## 🧺 Essentials for a Healthy & Young Life
