@@ -56,7 +56,7 @@ To initialize the interface locally inside your development workspace environmen
 git clone https://github.com
 
 # Move into the server folder directory
-cd cozy-kitchen-blog
+cd Focolove_community
 
 # Install system dependency packages
 npm install
@@ -70,7 +70,7 @@ The interface will mount securely at `http://localhost:3000`.
 ---
 ## 💌 About the Principal Architecture Director
 
-Engineered and supervised by **Nisha**, a systems software developer and conscious ecosystem advocate working at the intersection of aesthetic design, code transparency, and socioeconomic activism. She engineers digital web assets to empower digital generations to reclaim focus, value human existence, and build real-world cognitive skills.
+Engineered and supervised by **Nisha/Lenin**, a systems software developer and conscious ecosystem advocate working at the intersection of aesthetic design, code transparency, and socioeconomic activism. She engineers digital web assets to empower digital generations to reclaim focus, value human existence, and build real-world cognitive skills.
 
 *// System Message: Stop Consuming. Start Coding. Create Future. ⚡*
 
