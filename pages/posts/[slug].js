@@ -1,4 +1,5 @@
 // pages/posts/[slug].js
+import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -113,6 +114,31 @@ export default function PostPage({ frontmatter, content, theme, setTheme }) {
             padding: 1rem;
           }
         }
+
+        .shop-item-node:hover {
+          border-color: #00ffff !important;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(0, 255, 255, 0.05) !important;
+        }
+        .buy-btn-node:hover {
+         background-color: #00ffff !important;
+         color: #0c0a0c !important;
+         box-shadow: 0 0 15px rgba(0, 255, 255, 0.3) !important;
+        }
+
+        .cyber-product-shelf {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .cyber-product-shelf:hover {
+          border-color: #00ffff !important;
+          box-shadow: 0 10px 25px rgba(0, 255, 255, 0.08) !important;
+        }
+        .cyber-purchase-trigger:hover {
+          background-color: #ff007f !important;
+          color: #ffffff !important;
+          box-shadow: 0 0 20px rgba(255, 0, 127, 0.4) !important;
+          transform: translateY(-1px);
+        }
       `}</style>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
@@ -172,49 +198,113 @@ export default function PostPage({ frontmatter, content, theme, setTheme }) {
           </div>
         )}
 
-        {/* UPDATED: Dynamic Markdown Parser with Intelligent Syntax Highlighting */}
-        <div className="markdown-content" style={{ color: pageText }}>
-          <ReactMarkdown
-            children={content}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    children={String(children).replace(/\n$/, '')}
-                    style={dracula}
-                    language={match[1]}
-                    PreTag="div"
-                    customStyle={{
-                      background: '#121218',
-                      border: '1px solid #1c1822',
-                      borderRadius: '8px',
-                      padding: '1.2rem',
-                      fontSize: '14px',
-                      fontFamily: "'JetBrains Mono', monospace",
-                      margin: '1.5rem 0'
-                    }}
-                    {...props}
-                  />
-                ) : (
-                  <code 
-                    style={{ 
-                      background: 'rgba(255, 0, 127, 0.1)', 
-                      color: '#ff007f', 
-                      padding: '2px 6px', 
-                      borderRadius: '4px', 
-                      fontSize: '14px',
-                      fontFamily: "'JetBrains Mono', monospace"
-                    }} 
-                    {...props}
-                  >
-                    {children}
-                  </code>
-                );
-              }
-            }}
-          />
-        </div>
+        <ReactMarkdown
+  children={content}
+  components={{
+    // Existing code block rendering mappings (SyntaxHighlighter) bilkul same rahenge...
+
+    // 🚀 1. OVERRIDING HEADINGS TO CREATE INTEGRATED PRODUCTS SHELF CARDS
+    h3({ children }) {
+      const productName = children.toString() || 'PRODUCT_NODE';
+      
+      // Fetch dynamic local images link form frontmatter
+      let productImage = '/images/default-thumb.jpg'; //Fallback link
+
+      if (productName.toLowerCase().includes('almond')) productImage = frontmatter.almond_img || productImage;
+      if (productName.toLowerCase().includes('lavender')) productImage = frontmatter.lavender_img || productImage;
+      if (productName.toLowerCase().includes('tea')) productImage = frontmatter.teatree_img || productImage;
+      if (productName.toLowerCase().includes('beans')) productImage = frontmatter.beans_img || productImage;
+      if (productName.toLowerCase().includes('oats')) productImage = frontmatter.oats_img || productImage;
+
+     // to pass the hydration i've used react fragment (<>) and heading semantic component
+      return (
+        <span style={{ display: 'block', margin: '2.5rem 0 1rem 0' }}>
+          <span 
+            className="cyber-product-shelf"
+            style={{
+              backgroundColor: '#110e14',
+              border: '1px solid #1e1924',
+              borderRadius: '8px',
+              padding: '1.8rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              position: 'relative',
+              overflow: 'hidden'
+            }} 
+          >
+            <span style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ position: 'relative', width: '100px', height: '100px', borderRadius: '4px', overflow: 'hidden', flexShrink: 0, backgroundColor: '#0a080d', border: '1px solid #2a2233', display: 'block' }}>
+                <img src={productImage} alt={productName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </span>
+              <span>
+                <span style={{ display: 'block', fontSize: '9px', fontFamily: "'JetBrains Mono', monospace", color: '#00ffff', tracking: '1px', border: '1px solid rgba(0,255,255,0.2)', padding: '1px 6px', borderRadius: '3px', width: 'fit-content' }}>
+                  MARKETPLACE // SECURE_NODE
+                </span>
+                {/* Real semantic text parameter heading here to protect it from wrapping breakdowns */}
+                <strong style={{ display: 'block', fontSize: '1.4rem', fontWeight: '800', color: '#ffffff', margin: '6px 0 0 0', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                  {children}
+                </strong>
+              </span>
+            </span>
+          </span>
+        </span>
+      );
+    },
+
+    // 🚀 2. CLEAN UP PARAGRAPHS INSIDE CARDS
+    p({ children }) {
+      // Normal output text styling inside blocks
+      return <p style={{ color: '#a0a0b0', lineHeight: '1.7', fontSize: '14px', margin: '0.5rem 0' }}>{children}</p>;
+    },
+
+    // 🚀 3. TRANSFORM COPIED AMZN AFFILIATE SHORT LINKS INTO FUTURISTIC BUTTONS
+    a({ href, children }) {
+      // Direct raw plain link arrays extract processing
+      const linkText = children?.toString() || '';
+      const isAmazonNode = linkText.includes('amzn.to') || href?.includes('amzn.to') || linkText.includes('Amazon');
+
+      if (isAmazonNode) {
+        // Safe parameter redirection URL binding fallback
+        const targetUrl = linkText.startsWith('http') ? linkText : href;
+        
+        return (
+          <div style={{ marginTop: '1rem' }}>
+            <a 
+              href={targetUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                backgroundColor: 'rgba(255, 0, 127, 0.04)',
+                border: '1px solid #ff007f',
+                color: '#ff007f',
+                borderRadius: '4px',
+                fontSize: '11px',
+                fontFamily: "'JetBrains Mono', monospace",
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                fontWeight: '700',
+                letterSpacing: '0.5px',
+                boxShadow: '0 0 15px rgba(255, 0, 127, 0.1)',
+                transition: 'all 0.25s ease'
+              }}
+              className="cyber-purchase-trigger"
+            >
+              ⚡ INITIALIZE_PURCHASE_NODE
+            </a>
+          </div>
+        );
+      }
+
+      return <a href={href} style={{ color: '#00ffff', textDecoration: 'underline' }}>{children}</a>;
+    }
+  }}
+/>
 
         {/* Multiple Products Section */}
         {frontmatter.products && frontmatter.products.length > 0 && (
