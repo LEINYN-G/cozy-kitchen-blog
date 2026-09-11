@@ -110,8 +110,8 @@ export default function Home() {
           </div>
 
            {/* Action CTA Trigger */}
-          <Link href="/cozy-kitchen" style={{ display: 'inline-flex', alignItems: 'center', padding: '8px 20px', backgroundColor: '#ff007f', color: '#ffffff', fontWeight: '700', borderRadius: '4px', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', textTransform: 'uppercase', textDecoration: 'none', transition: 'all 0.5s' }} className="btn-pink">
-            JOIN COMMUNITY
+          <Link href="/community" style={{ display: 'inline-flex', alignItems: 'center', padding: '8px 20px', backgroundColor: '#ff007f', color: '#ffffff', fontWeight: '700', borderRadius: '4px', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', textTransform: 'uppercase', textDecoration: 'none', transition: 'all 0.5s' }} className="btn-pink">
+            JOIN
           </Link>
         </nav>
         
@@ -240,11 +240,11 @@ export default function Home() {
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              <Link href="/page/1" style={{ display: 'inline-flex', alignItems: 'center', padding: '12px 28px', border: '1px solid #00ffff', color: '#00ffff', fontWeight: '600', borderRadius: '4px', cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', tracking: '0.5px', textDecoration: 'none', transition: 'all 0.3s' }} className="btn-cyan">
-                EXPLORE WORK
+              <Link href="community" style={{ display: 'inline-flex', alignItems: 'center', padding: '12px 28px', border: '1px solid #00ffff', color: '#00ffff', fontWeight: '600', borderRadius: '4px', cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', tracking: '0.5px', textDecoration: 'none', transition: 'all 0.3s' }} className="btn-cyan">
+                EXPLORE
               </Link>
-              <Link href="/cozy-kitchen" style={{ display: 'inline-flex', alignItems: 'center', padding: '12px 28px', backgroundColor: '#ff007f', color: '#ffffff', fontWeight: '600', borderRadius: '4px', cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace', monospace", fontSize: '12px', tracking: '0.5px', textDecoration: 'none', transition: 'all 0.3s' }} className="btn-pink">
-                JOIN COMMUNITY
+              <Link href="/community" style={{ display: 'inline-flex', alignItems: 'center', padding: '12px 28px', backgroundColor: '#ff007f', color: '#ffffff', fontWeight: '600', borderRadius: '4px', cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace', monospace", fontSize: '12px', tracking: '0.5px', textDecoration: 'none', transition: 'all 0.3s' }} className="btn-pink">
+                JOIN
               </Link>
             </div>
           </div>
